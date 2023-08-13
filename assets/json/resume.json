@@ -18,7 +18,7 @@
       "name": "University of Groningen, the Netherlands",
       "position": "PhD Candidate",
       "startDate": "2020",
-      "endDate": "present (expected 2024)",
+      "endDate": "present",
       "summary": "supervisors: Dr. Daan Meerburg, Prof. Diederik Roest, Prof. Léon Koopmans"
     }
   ],
@@ -27,20 +27,20 @@
     {
       "institution": "Utrecht University, the Netherlands",
       "area": "Theoretical Physics",
-      "summary": "Thesis: Inflationary Consistency Conditions and Shift-symmetric Cosmologies",
+      "courses": "Thesis: Inflationary Consistency Conditions and Shift-symmetric Cosmologies",
       "studyType": "MSc.",
       "startDate": "2016",
       "endDate": "2018",
-      "score": "GPA 4.0"
+      "score": "4.0"
     },
     {
       "institution": "Utrecht University, the Netherlands",
       "area": "Physics & Astronomy",
-      "summary": "Thesis: Quantum fluctuations and Magnon-Magnon interactions in Antiferromagnets",
+      "courses": "Thesis: Quantum fluctuations and Magnon-Magnon interactions in Antiferromagnets",
       "studyType": "BSc.",
       "startDate": "2013",
       "endDate": "2016",
-      "score": "GPA 4.0"
+      "score": "4.0"
     }
   ],
   "awards": [],
