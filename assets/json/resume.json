@@ -2,7 +2,7 @@
   "basics": {
     "name": "Thomas Flöss",
     "label": "Theoretical Cosmologist",
-    "image": "IMG_1418.PNG",
+    "image": "/assets/img/IMG_1418.PNG",
     "email": "tsfloss@gmail.com",
     "url": "https://thomasfloss.com/",
     "profiles": [
@@ -53,7 +53,7 @@
     {
       "language": "English",
       "fluency": "Fluent"
-    }
+    },
     {
       "language": "German",
       "fluency": "Proficient"
