@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <a href='https://www.rug.nl/staff/t.s.floss/?lang=en'>PhD Candidate in Theoretical Cosmology at the University of Groningen, the Netherlands.</a>
 
