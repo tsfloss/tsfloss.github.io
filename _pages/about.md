@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='https://www.rug.nl/staff/t.s.floss/?lang=en'>PhD Candidate in Theoretical Cosmology at the University of Groningen, the Netherlands.</a>. Address. Contacts. Moto. Etc.
 
 profile:
   align: right
