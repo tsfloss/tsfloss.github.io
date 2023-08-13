@@ -3,22 +3,13 @@
     "name": "Thomas Flöss",
     "label": "Theoretical Cosmologist",
     "image": "IMG_1418.PNG",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
-    "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
-    },
+    "email": "tsfloss@gmail.com",
+    "url": "https://thomasfloss.com/",
     "profiles": [
       {
         "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
+        "username": "tsfloss",
+        "url": "https://twitter.com/tsfloss"
       }
     ]
   },
