@@ -19,8 +19,6 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I'm a PhD candidate at the University of Groningen in the Netherlands. I work primarily on the use of late time cosmological probes, such as galaxy surveys and intensity mapping (e.g. 21-cm) to study the primordial universe, in particular cosmic inflation and primordial non-Gaussianity. In my research I make use analytical as well as modern machine learning methods. Besides this, I like to think about formal aspects of cosmology such as consistency conditions and the cosmological bootstrap. Recently I have also been studying the amplitude double copy and its connection with massive gravity.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+My PhD research is part of the  <a href='https://www.fundamentalsoftheuniverse.com'>Fundamentals of the Universe</a> program and my supervisors are Dr. Daan Meerburg and Prof. Diederik Roest at the <a href='https://www.rug.nl/research/vsi/?lang=en'>Van Swinderen Institute for Particle Physics and Gravity</a> and Prof. Léon Koopmans at the <a href='https://www.rug.nl/research/kapteyn/?lang=en'>Kapteyn Astronomical Institute</a>.
