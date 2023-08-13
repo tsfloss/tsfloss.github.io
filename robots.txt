@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://tsfloss.github.io/al-folio/sitemap.xml
+Sitemap: https://tsfloss.github.io/sitemap.xml
