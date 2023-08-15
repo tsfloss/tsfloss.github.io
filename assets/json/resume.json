@@ -16,7 +16,7 @@
       "position": "PhD Candidate in Theoretical Cosmology",
       "startDate": "2020",
       "endDate": "present",
-      "summary": ["Advisors: Dr. Daan Meerburg, Prof. Diederik Roest & Prof. Léon Koopmans","test"]
+      "summary": "Advisors: Dr. Daan Meerburg, Prof. Diederik Roest & Prof. Léon Koopmans"
     }
   ],
   "volunteer": [],
@@ -24,7 +24,7 @@
     {
       "institution": "Utrecht University, the Netherlands",
       "area": "Theoretical Physics",
-      "courses": ["Thesis: Inflationary Consistency Conditions and Shift-symmetric Cosmologies (advisors: Dr. Enrico Pajer & Dr. Garrett Goon)"],
+      "courses": ["Thesis: Inflationary Consistency Conditions and Shift-symmetric Cosmologies (advisors: Dr. Enrico Pajer & Dr. Garrett Goon)","GPA 4.0"],
       "studyType": "MSc.",
       "startDate": "2016",
       "endDate": "2018",
@@ -33,7 +33,7 @@
     {
       "institution": "Utrecht University, the Netherlands",
       "area": "Physics & Astronomy",
-      "courses": ["Thesis: Quantum fluctuations and Magnon-Magnon interactions in Antiferromagnets (advisors: Prof. Rembert Duine & Dr. Scott Bender)"],
+      "courses": ["Thesis: Quantum fluctuations and Magnon-Magnon interactions in Antiferromagnets (advisors: Prof. Rembert Duine & Dr. Scott Bender)","GPA 4.0"],
       "studyType": "BSc.",
       "startDate": "2013",
       "endDate": "2016",
