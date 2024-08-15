@@ -12,10 +12,16 @@
   },
   "work": [
     {
+      "name": "University of Vienna, Austria",
+      "position": "Postdoctoral Researcher (University Assistant)",
+      "startDate": "October 2024",
+      "summary": "group of Oliver Hahn"
+    },
+    {
       "name": "University of Groningen, the Netherlands",
       "position": "PhD Candidate in Theoretical Cosmology",
       "startDate": "2020",
-      "endDate": "present",
+      "endDate": "2024",
       "summary": "Advisors: Dr. Daan Meerburg, Prof. Diederik Roest & Prof. Léon Koopmans"
     }
   ],
