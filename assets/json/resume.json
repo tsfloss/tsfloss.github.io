@@ -13,10 +13,10 @@
   "work": [
     {
       "name": "University of Vienna, Austria",
-      "position": "Postdoctoral Researcher (University Assistant)",
+      "position": "Postdoctoral Researcher and Lecturer (University Assistant)",
       "startDate": "October 2024",
-      "endDate": "2028",
-      "summary": "group of Oliver Hahn"
+      // "endDate": "2028",
+      "summary": "Computational cosmology group of Univ.-Prof. Oliver Hahn"
     },
     {
       "name": "University of Groningen, the Netherlands",
