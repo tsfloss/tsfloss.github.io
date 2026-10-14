@@ -1,56 +1,211 @@
-# Agent Guidelines for al-folio (v1.x)
+# AGENTS.md — as-folio
 
-`al-folio` is the **starter repo** for the pluginized v1 architecture.
+Guidelines for AI agents (Claude Code, Codex, Copilot Workspace, etc.) contributing to as-folio.
 
-## Read This First
+---
 
-- Start with `.github/copilot-instructions.md` for architecture, ownership boundaries, and CI expectations.
-- Use `docs/BOUNDARIES.md` as the source of truth for starter-vs-plugin ownership.
-- Use `.agents/skills/al-folio-bootstrap/SKILL.md` for new-site setup tasks.
-- Use `.agents/skills/al-folio-v1-migration/SKILL.md` for customized fork migrations.
-- `.codex/skills` and `.claude/skills` are symlinks to `.agents/skills` for agent-specific discovery.
+## Repository layout
 
-## What This Repo Owns
-
-- Starter wiring (`Gemfile`, `_config.yml`)
-- Starter content and documentation
-- Cross-plugin integration tests
-- Visual regression tests
-
-Runtime/component logic belongs in owning plugin repos (`al_folio_core`, `al_folio_distill`, `al_search`, `al_icons`, `al_cookie`, and other `al-*` gems).
-Long-form documentation lives in `docs/`; keep this root file as the short discovery entry point for coding agents.
-
-## Validated Local Command Set
-
-Run from repo root:
-
-```bash
-npm ci
-npm run lint:prettier
-npm run lint:style-contract
-bundle exec jekyll build --baseurl /al-folio
-bash test/integration_comments.sh
-bash test/integration_plugin_toggles.sh
-bash test/integration_distill.sh
-bash test/integration_bootstrap_compat.sh
-bash test/integration_upgrade_cli.sh
-npx playwright install chromium webkit
-npm run test:visual
-bundle exec al-folio upgrade audit
-bundle exec al-folio upgrade overrides audit
-bundle exec al-folio upgrade report
-docker compose up -d
-curl -fsS http://127.0.0.1:8080/al-folio/ >/dev/null
-docker compose logs --tail=80
-docker compose down
+```text
+as-folio/
+├── src/
+│   ├── config/site.ts        ← single config file (start here)
+│   ├── content/              ← collections: posts, projects, people, teaching, books, announcements
+│   ├── data/
+│   │   ├── papers.bib        ← BibTeX bibliography
+│   │   ├── coauthors.yml     ← co-author profile links (LastName: { url, scholar, orcid })
+│   │   ├── citations.yml     ← citation counts keyed by google_scholar_id (auto-updated)
+│   │   ├── cv.yml            ← RenderCV format CV
+│   │   ├── resume.json       ← JSONResume format CV
+│   │   └── repositories.yml  ← GitHub repos config
+│   ├── layouts/              ← Base.astro, Page.astro, Post.astro, Distill.astro
+│   ├── components/           ← UI components
+│   ├── pages/                ← Astro route pages
+│   └── styles/               ← global.css, _colors.css, _typography.css
+├── scripts/
+│   └── update-citations.ts   ← fetches citation counts from OpenAlex API (run via yarn citations:update)
+├── public/                   ← static assets (images, favicon, PDFs)
+├── astro.config.mjs
+├── package.json
+├── CLAUDE.md                 ← coding conventions and architecture (read this first)
+├── AGENTS.md                 ← this file
+├── README.md
+├── QUICKSTART.md
+└── CUSTOMIZE.md
 ```
 
-Docker note: v1 uses `/srv/jekyll/bin/entry_point.sh` and serves from container-local `/tmp/_site` to avoid host bind-mount write deadlocks.
+All paths in this file are relative to the repository root.
 
-## Agent Routing Rules
+---
 
-- If change is starter wiring/docs/integration/visual testing: edit here.
-- If change is runtime feature behavior: route to owning plugin repo.
-- Do not add starter-local npm build scripts for theme/runtime assets.
-- Keep docs aligned with pluginized v1 ownership.
-- If you create or keep local overrides of plugin-owned files, run `bundle exec al-folio upgrade overrides audit` and commit `.al-folio-overrides.yml` after review.
+## Build command
+
+```bash
+yarn build        # must exit 0 before submitting any PR
+```
+
+Run this after every non-trivial change. If the build fails, fix it before proceeding.
+
+---
+
+## What to do first
+
+1. **Read `CLAUDE.md`** — coding conventions, architecture, common pitfalls
+2. **Read `src/config/site.ts`** — understand the config shape before touching features
+3. **Read `src/content.config.ts`** — understand content schemas before adding fields
+4. **Run `yarn build`** — confirm baseline passes
+
+---
+
+## Key rules
+
+### Package manager
+
+Use `yarn`. Never `npm` or `npx`. Never `yarn add --dev` — use `yarn add -D`.
+
+### Content Layer API
+
+Use Astro 6 API: `const { Content } = await render(entry)` — not `entry.render()`.
+
+### CSS
+
+- CSS custom properties for all theming (see `src/styles/_colors.css`)
+- Dark mode via `[data-theme='dark']` selector — never Tailwind's `dark:` prefix
+- No `innerHTML` with untrusted content — use `textContent`
+
+### Config changes
+
+Any new feature must have:
+
+- A flag in `site.ts` with a JSDoc comment
+- Documentation in `CUSTOMIZE.md`
+- Build verified to exit 0
+
+### No hardcoded persona strings
+
+**Never embed persona names, demo values, or user-visible strings directly in components.**
+All such values must originate in `src/config/site.ts` and be passed down as props.
+
+Examples of what NOT to do:
+
+```typescript
+// ❌ Wrong — hardcoded persona
+const PERSONA_LAST_NAME = 'einstein';
+
+// ❌ Wrong — hardcoded UI label
+<button>Abs</button>
+```
+
+Examples of what to do instead:
+
+```typescript
+// ✅ Correct — derived from config
+const authorLastName = site.publications.authorLastName ?? site.author.name.split(' ').pop() ?? '';
+
+// ✅ Correct — label from config
+<button>{labels.abstract ?? 'Abs'}</button>
+```
+
+This applies to publication author highlighting, search placeholders, empty-state messages, page descriptions, and any other user-visible text.
+
+### Schema changes
+
+When adding BibTeX fields, frontmatter fields, or collection fields:
+
+- Update `src/content.config.ts` with the Zod schema
+- Use `z.coerce.string()` for fields that YAML may parse as numbers (ISBN, IDs)
+- Add `optional()` with a default for fields that may not be present
+
+---
+
+## Patterns to follow
+
+### Clickable card with inner link (avoid nested `<a>`)
+
+```astro
+<div class="card" data-href={url} role="link" tabindex="0">
+  {/* inner GitHub link — real <a> */}
+  <a href={githubUrl} class="github-link" onclick="event.stopPropagation()">...</a>
+</div>
+
+<script>
+  document.querySelectorAll('[data-href]').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (!(e.target as Element).closest('a')) {
+        window.location.href = card.dataset.href!;
+      }
+    });
+  });
+</script>
+```
+
+### Per-post CDN widget (in Post.astro)
+
+```astro
+---
+const { chart_js = false } = post.data;
+---
+
+{chart_js && <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" defer />}
+```
+
+### Analytics injection (in Base.astro)
+
+```astro
+---
+const { pirsch } = site.analytics;
+---
+
+{pirsch && <script defer src="https://api.pirsch.io/pa.js" data-code={pirsch} />}
+```
+
+---
+
+## Files you should NOT modify
+
+- `yarn.lock` — managed by yarn automatically
+- `dist/` — build output, not tracked in git
+- `.husky/` — hooks managed by husky
+
+---
+
+## Files you will frequently modify
+
+| File                        | Purpose                                               |
+| --------------------------- | ----------------------------------------------------- |
+| `src/config/site.ts`        | Add feature flags, config options                     |
+| `src/content.config.ts`     | Add collection fields                                 |
+| `src/layouts/Post.astro`    | Add per-post CDN widgets                              |
+| `src/layouts/Base.astro`    | Add global scripts (analytics, consent)               |
+| `src/components/*.astro`    | New UI components                                     |
+| `src/pages/*.astro`         | New or modified pages                                 |
+| `src/content/**/*.md`       | Demo content                                          |
+| `src/data/papers.bib`       | BibTeX demo entries                                   |
+| `src/data/coauthors.yml`    | Co-author links (LastName → url/scholar/orcid)        |
+| `src/data/citations.yml`    | Citation counts; auto-updated — rarely edit manually  |
+| `scripts/update-citations.ts` | Citation fetch script; edit to change API/options   |
+| `CUSTOMIZE.md`              | Document new features                                 |
+
+---
+
+## Testing
+
+```bash
+yarn test           # unit tests (Vitest)
+yarn lint           # ESLint
+yarn format         # Prettier (check only in CI)
+yarn build          # full production build + pagefind index
+```
+
+The build is the primary acceptance test. All pages must generate without errors.
+
+---
+
+## Pull request checklist
+
+- [ ] `yarn build` exits 0 with 0 TypeScript errors
+- [ ] `yarn lint` passes
+- [ ] New feature has a flag in `site.ts`
+- [ ] New feature documented in `CUSTOMIZE.md`
+- [ ] New collection fields added to `src/content.config.ts`
+- [ ] Demo content updated if needed

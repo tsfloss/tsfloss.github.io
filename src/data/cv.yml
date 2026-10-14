@@ -1,0 +1,4 @@
+# The active CV uses src/data/resume.json.
+cv:
+  name: Thomas Flöss
+  sections: {}
