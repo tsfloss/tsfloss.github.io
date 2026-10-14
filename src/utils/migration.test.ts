@@ -9,7 +9,7 @@ describe('migrated personal bibliography', () => {
     const sourceKeys = [
       ...raw.matchAll(/@(?!string\b)(?:article|phdthesis|mastersthesis)\{([^,]+),/g),
     ].map((match) => match[1]);
-    expect(sourceKeys).toHaveLength(11);
+    expect(sourceKeys).toHaveLength(13);
     expect(entries.map((entry) => entry.key)).toEqual(sourceKeys);
     expect(entries.find((entry) => entry.key === '10.1093/mnras/stae1818')?.fields.title).toContain(
       'Denoising diffusion delensing',
