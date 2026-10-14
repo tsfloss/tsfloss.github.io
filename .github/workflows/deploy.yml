@@ -28,11 +28,12 @@ jobs:
           ASTRO_SITE: ${{ vars.ASTRO_SITE || 'https://thomasfloss.com' }}
           ASTRO_BASE: ''
           ASTRO_TELEMETRY_DISABLED: '1'
+      - name: Package static site
+        run: tar -czf website.tar.gz -C dist .
       - uses: actions/upload-artifact@v4
         with:
           name: website
-          path: dist
-          include-hidden-files: true
+          path: website.tar.gz
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     needs: build
@@ -47,7 +48,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: website
-          path: dist
+          path: artifact
+      - name: Unpack static site
+        run: mkdir -p dist && tar -xzf artifact/website.tar.gz -C dist
       - name: Publish static site
         uses: JamesIves/github-pages-deploy-action@v4
         with:
