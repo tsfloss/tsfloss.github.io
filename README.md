@@ -37,7 +37,7 @@ Citation counts can be refreshed explicitly with `yarn citations:update`; produc
 
 The canonical domain defaults to `https://thomasfloss.com`, matching the existing public redirect; `public/CNAME` preserves that domain. Override `ASTRO_SITE` if needed. The root base path is empty. No DNS changes are needed for a framework migration.
 
-The GitHub Actions workflow builds pull requests and deploys pushes to `master`. Before the first deployment, set repository Settings → Pages → Source to **GitHub Actions**. The new workflow uses Pages artifacts rather than pushing generated HTML to `gh-pages`.
+The GitHub Actions workflow builds pull requests and deploys pushes to `master`. The workflow publishes the generated static files to `gh-pages`, preserving the existing GitHub Pages branch source and custom domain. Existing unrelated files are retained. A `.nojekyll` file prevents GitHub from processing the generated site with Jekyll.
 
 The migration is local until you commit and push it. Review the preview before publication.
 
